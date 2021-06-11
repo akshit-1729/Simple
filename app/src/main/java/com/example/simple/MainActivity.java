@@ -35,15 +35,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void save(View v) {
-
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
                 String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
                 requestPermissions(permissions,WRITE_EXTERNAL_CODE);
             }
             else{
-//                System.out.println("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
                 String text = mEditText.getText().toString();
                 FileOutputStream fs = null;
                 try {
@@ -53,22 +50,16 @@ public class MainActivity extends AppCompatActivity {
                     boolean success = true;
                     if (!folder.exists())
                     {
-                        System.out.println("1111111111111111111111111111111100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
-                        success = folder.mkdir();
                         folder.mkdirs();
                         Toast.makeText(getApplicationContext(),"Directory Created",Toast.LENGTH_LONG).show();
                     }
-                    String path = getApplicationContext().getExternalFilesDir("Directory Name").getAbsolutePath().toString();
+                    String path = getApplicationContext().getExternalFilesDir("Directory Name").getAbsolutePath();
                     if(folder.exists()) {
                         // Do something on success
-                        System.out.println("2222222222222222222222222222222222000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
                         fs.write(text.getBytes());
                         mEditText.getText().clear();
                         Toast.makeText(this, "Saved to " + path + "/" + file_name, Toast.LENGTH_LONG).show();
 
-                    } else {
-                        // Do something else on
-                        System.out.println("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
                     }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
